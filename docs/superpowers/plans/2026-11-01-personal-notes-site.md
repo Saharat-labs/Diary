@@ -162,5 +162,5 @@ test('excerpt strips markdown and images and truncates', () => {
 
 repo ยังไม่มี branch `main` ซึ่ง workflow และ CMS ใช้
 
-- [ ] **Step 1:** ถามเจ้าของก่อนสร้าง `main` จาก commit แรกของ branch (`d3d21cb`) แล้วเปิด draft PR `claude/epic-hopper-o3zda7` → `main`
+- [ ] **Step 1:** ถามเจ้าของก่อนสร้าง `main` จาก commit แรกของ branch (`d3d21cb`) แล้วเปิด draft PR `claude/epic-hopper-o3zda7` → `main` และให้เจ้าของ**ตั้ง `main` เป็น default branch** (Settings → General → Default branch) เพราะ GitHub Pages เผยแพร่จาก default branch เท่านั้น
 - [ ] **Step 2:** หลังเจ้าของ merge และเปิด Pages ตาม README ตรวจว่า `https://saharatyokthuan.github.io/Claudy/` และ `/Claudy/admin/` เปิดได้
