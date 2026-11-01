@@ -35,3 +35,24 @@ test('pages collection has the about file', () => {
 test('uploaded photos are resized to webp', () => {
   expect(cfg.media_libraries.default.config.transformations.raster_image).toEqual({ format: 'webp', quality: 85, width: 2000, height: 2000 });
 });
+
+const notesFields = () => cfg.collections.find((c: any) => c.name === 'notes').fields;
+
+test('date is saved with a +07:00 offset (Sveltia input_timezone) and pre-filled with the current time', () => {
+  const date = field(notesFields(), 'date');
+  expect(date.widget).toBe('datetime');
+  expect(date.input_timezone).toBe('Asia/Bangkok');
+  expect(date.default).toBe('{{now}}');
+  // output_utc would turn 23:15 Bangkok into the previous-day UTC value; we want the local offset kept
+  expect(date.output_utc).toBeUndefined();
+});
+test('category hint explains the one-box-per-category editor and warns about spelling', () => {
+  const hint: string = field(notesFields(), 'categories').hint;
+  expect(hint).toContain('ช่องละ 1 หมวด');
+  expect(hint).toContain('Add');
+  expect(hint).toContain('ใช้ชื่อหมวดเดิมให้สะกดเหมือนเดิม');
+  expect(hint).not.toContain('คั่นด้วย');
+});
+test('uploaded file names are slugified so spaces never reach markdown image paths', () => {
+  expect(cfg.media_libraries.default.config.slugify_filename).toBe(true);
+});
