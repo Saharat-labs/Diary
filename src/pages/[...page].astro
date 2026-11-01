@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import NoteCard from '../components/NoteCard.astro';
+import { getPublishedNotes } from '../lib/published';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const notes = await getPublishedNotes();
+  return paginate(notes, { pageSize: 20 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: Page<CollectionEntry<'notes'>> };
+---
+<Base title={page.currentPage > 1 ? `หน้า ${page.currentPage}` : undefined}>
+  {page.data.length === 0 && <p class="muted">ยังไม่มีบันทึก</p>}
+  {page.data.map((note) => <NoteCard note={note} />)}
+  <nav class="pager">
+    {page.url.prev ? <a href={page.url.prev}>← ใหม่กว่า</a> : <span />}
+    {page.url.next ? <a href={page.url.next}>เก่ากว่า →</a> : <span />}
+  </nav>
+</Base>
