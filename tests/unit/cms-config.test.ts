@@ -5,7 +5,7 @@ const cfg = parse(readFileSync('public/admin/config.yml', 'utf8'));
 const field = (fields: any[], name: string) => fields.find((f) => f.name === name);
 
 test('backend points at this repo main branch', () => {
-  expect(cfg.backend).toEqual({ name: 'github', repo: 'saharatyokthuan/Claudy', branch: 'main' });
+  expect(cfg.backend).toEqual({ name: 'github', repo: 'saharatyokthuan/Diary', branch: 'main' });
 });
 test('media goes to src/assets/notes, referenced relatively from each collection', () => {
   expect(cfg.media_folder).toBe('src/assets/notes');

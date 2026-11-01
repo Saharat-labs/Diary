@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const B = '/Claudy';
+const B = '/Diary';
 const NOTES = {
   draft: { id: '2026-10-28-d5r6t2', title: 'ไอเดียที่ยังเขียนไม่เสร็จ', category: 'ไอเดีย' },
   cover: { id: '2026-10-20-a7k2m9', title: 'ทริปทะเลวันหยุดยาว', category: 'ท่องเที่ยว' },

@@ -3,7 +3,7 @@ import remarkBreaks from 'remark-breaks';
 
 export default defineConfig({
   site: 'https://saharatyokthuan.github.io',
-  base: '/Claudy',
+  base: '/Diary',
   trailingSlash: 'always',
   // การทดสอบหน้าเว็บใช้บันทึกทดสอบ (NOTES_DIR) จึงแยกแคชไว้ ไม่ให้ปนกับบันทึกจริงตอน build ครั้งถัดไป
   ...(process.env.NOTES_DIR ? { cacheDir: './node_modules/.astro-test' } : {}),

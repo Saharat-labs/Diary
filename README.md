@@ -2,8 +2,8 @@
 
 เว็บบันทึกส่วนตัวที่เปิดให้ทุกคนอ่านได้ เขียนจากมือถือได้ ฟรีทั้งหมด
 
-- เว็บ: https://saharatyokthuan.github.io/Claudy/
-- หน้าเขียนบันทึก: https://saharatyokthuan.github.io/Claudy/admin/
+- เว็บ: https://saharatyokthuan.github.io/Diary/
+- หน้าเขียนบันทึก: https://saharatyokthuan.github.io/Diary/admin/
 
 ---
 
@@ -13,15 +13,15 @@
 
 GitHub Pages เผยแพร่เว็บจาก **default branch เท่านั้น** ถ้า default ยังเป็น branch อื่น เว็บจะไม่ขึ้น (หรือสร้างเว็บแล้วเผยแพร่ไม่ได้) จึงต้องทำขั้นนี้ก่อนเปิด Pages
 
-1. เข้า https://github.com/saharatyokthuan/Claudy/settings (แท็บ **Settings** → **General**)
+1. เข้า https://github.com/saharatyokthuan/Diary/settings (แท็บ **Settings** → **General**)
 2. เลื่อนลงไปที่หัวข้อ **Default branch** แล้วกดปุ่มลูกศรสองทาง ⇄ (Switch to another branch)
 3. เลือก `main` → กด **Update** → กดยืนยัน **I understand, update the default branch**
 
 ### 2. เปิด GitHub Pages
 
-1. เข้า https://github.com/saharatyokthuan/Claudy/settings/pages
+1. เข้า https://github.com/saharatyokthuan/Diary/settings/pages
 2. ช่อง **Source** เลือก **GitHub Actions**
-3. รอประมาณ 1–2 นาที แล้วเปิด https://saharatyokthuan.github.io/Claudy/ ดู
+3. รอประมาณ 1–2 นาที แล้วเปิด https://saharatyokthuan.github.io/Diary/ ดู
 
 > เว็บจะอัปเดตเองทุกครั้งที่มีการเปลี่ยนแปลงใน branch `main`
 
@@ -32,7 +32,7 @@ GitHub Pages เผยแพร่เว็บจาก **default branch เท�
 1. เข้า https://github.com/settings/personal-access-tokens/new
 2. **Token name:** ตั้งชื่ออะไรก็ได้ เช่น `เขียนบันทึก`
 3. **Expiration:** เลือกอายุ เช่น 1 ปี (เมื่อหมดอายุให้สร้างใหม่ตามขั้นตอนเดิม)
-4. **Repository access:** เลือก **Only select repositories** แล้วเลือก `Claudy`
+4. **Repository access:** เลือก **Only select repositories** แล้วเลือก `Diary`
 5. **Permissions → Repository permissions → Contents:** เลือก **Read and write**
 6. กด **Generate token** แล้ว **คัดลอกรหัสเก็บไว้** (GitHub จะแสดงให้เห็นครั้งเดียว)
 
@@ -40,7 +40,7 @@ GitHub Pages เผยแพร่เว็บจาก **default branch เท�
 
 ### 4. เข้าหน้าเขียนบนมือถือ
 
-1. เปิด https://saharatyokthuan.github.io/Claudy/admin/ ในเบราว์เซอร์มือถือ (Chrome หรือ Samsung Internet)
+1. เปิด https://saharatyokthuan.github.io/Diary/admin/ ในเบราว์เซอร์มือถือ (Chrome หรือ Samsung Internet)
 2. กด **Sign In Using Access Token** แล้ววางรหัสจากขั้นที่ 3
 3. เบราว์เซอร์จะจำไว้ ครั้งต่อไปไม่ต้องใส่อีก
 4. แนะนำ: กดเมนู ⋮ → **เพิ่มลงในหน้าจอหลัก** จะได้ไอคอนเปิดหน้าเขียนได้ทันที
@@ -73,7 +73,7 @@ GitHub Pages เผยแพร่เว็บจาก **default branch เท�
 ## ถ้าบันทึกไม่ขึ้นเว็บ
 
 1. รอประมาณ **5 นาที** แล้วรีเฟรชหน้าเว็บอีกครั้ง (ทุกครั้งที่กด Save เว็บต้องสร้างใหม่ ใช้เวลาสักพัก)
-2. เปิด https://github.com/saharatyokthuan/Claudy/actions แล้วดูรายการบนสุด
+2. เปิด https://github.com/saharatyokthuan/Diary/actions แล้วดูรายการบนสุด
    - วงกลมสีเหลืองหมุน ๆ = กำลังสร้างเว็บ รอต่อ
    - เครื่องหมายถูกสีเขียว = สำเร็จ
    - **เครื่องหมาย ✗ สีแดง = สร้างเว็บไม่สำเร็จ** เว็บจะยังเป็นเวอร์ชันก่อนหน้าไปก่อน
@@ -93,7 +93,7 @@ GitHub Pages เผยแพร่เว็บจาก **default branch เท�
 
 ```bash
 npm install
-npm run dev        # เปิดเว็บในเครื่องที่ http://localhost:4321/Claudy/
+npm run dev        # เปิดเว็บในเครื่องที่ http://localhost:4321/Diary/
 npm test           # ทดสอบ logic
 npm run test:e2e   # ทดสอบหน้าเว็บที่ความกว้างมือถือ
 ```

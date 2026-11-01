@@ -1,7 +1,7 @@
 # ตั้งค่าหน้าเขียนบันทึก (Sveltia CMS) — https://github.com/sveltia/sveltia-cms
 backend:
   name: github
-  repo: saharatyokthuan/Claudy
+  repo: saharatyokthuan/Diary
   branch: main
 
 # รูปที่อัปโหลดเก็บใน repo; แต่ละ collection อ้างรูปแบบ relative (ดูด้านล่าง) ให้ Astro ย่อรูปได้
@@ -20,8 +20,8 @@ media_libraries:
           width: 2000
           height: 2000
 
-site_url: https://saharatyokthuan.github.io/Claudy/
-display_url: https://saharatyokthuan.github.io/Claudy/
+site_url: https://saharatyokthuan.github.io/Diary/
+display_url: https://saharatyokthuan.github.io/Diary/
 
 collections:
   - name: notes
