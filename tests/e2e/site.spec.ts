@@ -77,6 +77,13 @@ test('all internal links resolve', async ({ page, request }) => {
   }
 });
 
+test('single newlines render as line breaks', async ({ page }) => {
+  await page.goto(`${B}/notes/${NOTES.long.id}/`);
+  // two consecutive lines (no blank line) in the recipe note: Samsung Notes style
+  await expect(page.locator('main article br')).not.toHaveCount(0);
+  await expect(page.locator('main article p', { hasText: 'ไฟแรงตลอด' }).locator('br')).toHaveCount(1);
+});
+
 test('dates are Thai', async ({ page }) => {
   await page.goto(`${B}/`);
   await expect(page.locator('main')).toContainText('ตุลาคม 2569');

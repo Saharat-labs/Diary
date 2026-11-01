@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",
-    "astro": "5.18.2"
+    "astro": "5.18.2",
+    "remark-breaks": "4.0.0"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
