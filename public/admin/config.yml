@@ -1,0 +1,59 @@
+# ตั้งค่าหน้าเขียนบันทึก (Sveltia CMS) — https://github.com/sveltia/sveltia-cms
+backend:
+  name: github
+  repo: saharatyokthuan/Claudy
+  branch: main
+
+# รูปที่อัปโหลดเก็บใน repo; แต่ละ collection อ้างรูปแบบ relative (ดูด้านล่าง) ให้ Astro ย่อรูปได้
+media_folder: src/assets/notes
+public_folder: /src/assets/notes
+
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2000
+          height: 2000
+
+site_url: https://saharatyokthuan.github.io/Claudy/
+display_url: https://saharatyokthuan.github.io/Claudy/
+
+collections:
+  - name: notes
+    label: บันทึก
+    label_singular: บันทึก
+    folder: src/content/notes
+    media_folder: /src/assets/notes
+    public_folder: ../../assets/notes
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{uuid_short}}'
+    summary: '{{title}} — {{date}}'
+    sortable_fields: [date, title]
+    preview_path: 'notes/{{slug}}/'
+    fields:
+      - { name: title, label: ชื่อเรื่อง, widget: string }
+      - { name: date, label: วันที่, widget: datetime }
+      - name: categories
+        label: หมวดหมู่
+        label_singular: หมวดหมู่
+        widget: list
+        hint: พิมพ์ชื่อหมวด เพิ่มได้หลายหมวด
+        min: 1
+      - { name: cover, label: รูปปก, widget: image, required: false }
+      - { name: draft, label: ฉบับร่าง (ยังไม่แสดงบนเว็บ), widget: boolean, default: false }
+      - { name: body, label: เนื้อหา, widget: markdown }
+
+  - name: pages
+    label: หน้าเว็บ
+    media_folder: /src/assets/notes
+    public_folder: ../../assets/notes
+    files:
+      - name: about
+        label: เกี่ยวกับฉัน
+        file: src/content/pages/about.md
+        fields:
+          - { name: title, label: หัวข้อ, widget: string }
+          - { name: body, label: เนื้อหา, widget: markdown }
