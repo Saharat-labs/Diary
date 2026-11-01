@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- หน้าตัวอย่างสำหรับดูสีและฟอนต์ใน Acode (กด ▶ Preview) — ไฟล์นี้ไม่ขึ้นเว็บจริง
+     สี/ฟอนต์มาจาก public/theme.css ส่วนเลย์เอาต์ด้านล่างคัดลอกมาจาก src/layouts/Base.astro
+     และ src/components/NoteCard.astro เพื่อให้หน้าตาใกล้เคียงเว็บจริง -->
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ตัวอย่างธีม · บันทึกของฉัน</title>
+<link rel="stylesheet" href="public/theme.css" id="theme">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: var(--font-size); line-height: 1.75; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; overflow-wrap: anywhere; }
+  a { color: var(--accent); }
+  h1, h2, h3 { line-height: 1.35; font-family: var(--font-heading); }
+  .site-header { max-width: 720px; margin: 0 auto; padding: 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--line); }
+  .brand { font-weight: 700; font-size: 1.2rem; color: var(--fg); text-decoration: none; }
+  .site-header nav { display: flex; gap: 16px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-footer { max-width: 720px; margin: 32px auto 0; padding: 16px; border-top: 1px solid var(--line); font-size: .9rem; }
+  .muted { color: var(--muted); font-size: .9rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; }
+  .chips a { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--chip); text-decoration: none; font-size: .85rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 0 0 16px; }
+  .card h2 { margin: 4px 0 0; font-size: 1.2rem; }
+  .card h2 a { color: var(--fg); text-decoration: none; }
+  .card p { margin: 4px 0; }
+  .cat-list { list-style: none; padding: 0; }
+  .cat-list li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  /* แถบสลับโหมด (มีเฉพาะหน้าตัวอย่าง) */
+  .switch { position: sticky; top: 0; display: flex; gap: 8px; justify-content: center; padding: 8px; background: #888; font-family: system-ui, sans-serif; font-size: 14px; }
+  .switch button { min-height: 36px; padding: 0 14px; border-radius: 8px; border: 0; }
+</style>
+</head>
+<body>
+<div class="switch">
+  <button onclick="mode('auto')">ตามมือถือ</button>
+  <button onclick="mode('light')">สว่าง</button>
+  <button onclick="mode('dark')">มืด</button>
+</div>
+<header class="site-header">
+  <a class="brand" href="#">บันทึกของฉัน</a>
+  <nav><a href="#">หน้าแรก</a><a href="#">หมวดหมู่</a><a href="#">เกี่ยวกับ</a></nav>
+</header>
+<main>
+  <article class="card">
+    <h2><a href="#">ทะเลวันหยุด</a></h2>
+    <p class="muted"><time>1 พฤศจิกายน 2569</time></p>
+    <p>วันนี้ไปเดินชายหาดตอนเช้า ลมเย็นสบาย น้ำทะเลใสกว่าที่คิด เลยเก็บรูปมาฝาก…</p>
+    <ul class="chips"><li><a href="#">เที่ยว</a></li><li><a href="#">ทะเล</a></li></ul>
+  </article>
+  <article class="card">
+    <h2><a href="#">สูตรต้มยำกุ้งน้ำข้น</a></h2>
+    <p class="muted"><time>28 ตุลาคม 2569</time></p>
+    <p>จดสูตรไว้กันลืม ใส่นมข้นจืดนิดเดียวพอ <a href="#">ลิงก์ตัวอย่าง</a></p>
+    <ul class="chips"><li><a href="#">อาหาร</a></li></ul>
+  </article>
+  <h1>หมวดหมู่</h1>
+  <ul class="cat-list">
+    <li><a href="#">อาหาร</a> <span class="muted">(3)</span></li>
+    <li><a href="#">เที่ยว</a> <span class="muted">(2)</span></li>
+  </ul>
+</main>
+<footer class="site-footer"><a href="#">RSS</a></footer>
+<script>
+  // อ่านสีโหมดมืดจาก theme.css เพื่อให้กดสลับดูได้ โดยไม่ต้องเปลี่ยนธีมของมือถือ
+  function darkVars() {
+    try {
+      for (const r of document.getElementById('theme').sheet.cssRules)
+        if (r.media && /dark/.test(r.media.mediaText))
+          for (const rr of r.cssRules) if (rr.selectorText === ':root') return rr.style;
+    } catch (e) {}
+    return null;
+  }
+  function lightVars() {
+    try {
+      for (const r of document.getElementById('theme').sheet.cssRules)
+        if (r.selectorText === ':root') return r.style;
+    } catch (e) {}
+    return null;
+  }
+  function mode(m) {
+    const root = document.documentElement.style;
+    root.cssText = '';
+    const v = m === 'dark' ? darkVars() : m === 'light' ? lightVars() : null;
+    if (!v) return;
+    for (const k of v) if (k.startsWith('--')) root.setProperty(k, v.getPropertyValue(k));
+    root.colorScheme = m;
+  }
+</script>
+</body>
+</html>

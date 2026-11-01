@@ -16,7 +16,7 @@ const fullTitle = title ? `${title} · ${SITE.title}` : SITE.title;
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href={url('rss.xml')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href={url('theme.css')} />
   </head>
   <body>
     <header class="site-header">
@@ -35,27 +35,17 @@ const fullTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 </html>
 
 <style is:global>
-  :root {
-    --bg: #fbfaf7; --fg: #1f2328; --muted: #656d76; --line: #e4e1da;
-    --card: #ffffff; --accent: #b4532a; --chip: #f3ece4;
-    color-scheme: light dark;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #16181b; --fg: #e6e6e3; --muted: #9aa0a6; --line: #2c3036;
-      --card: #1e2125; --accent: #f08a5d; --chip: #2a2420;
-    }
-  }
+  /* สีและฟอนต์อยู่ใน public/theme.css */
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--bg); color: var(--fg);
-    font-family: 'Noto Sans Thai', system-ui, sans-serif; font-size: 17px; line-height: 1.75;
+    font-family: var(--font); font-size: var(--font-size); line-height: 1.75;
   }
   main { max-width: 720px; margin: 0 auto; padding: 16px; overflow-wrap: anywhere; }
   a { color: var(--accent); }
   img { max-width: 100%; height: auto; border-radius: 10px; }
-  h1, h2, h3 { line-height: 1.35; }
+  h1, h2, h3 { line-height: 1.35; font-family: var(--font-heading); }
   .site-header {
     max-width: 720px; margin: 0 auto; padding: 16px;
     display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between;
