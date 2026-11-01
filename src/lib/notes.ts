@@ -16,8 +16,13 @@ export function sortByDateDesc<T extends NoteLike>(notes: T[]): T[] {
   return [...notes].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
+// ตัวอักษร/เครื่องหมายวรรณยุกต์/ตัวเลขของทุกภาษา (รวมไทย) คงไว้ ส่วนอื่น เช่น / ? # % & . เว้นวรรค กลายเป็น "-"
 export function categorySlug(name: string): string {
-  return name.trim().toLowerCase().replace(/\s+/g, '-');
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{M}\p{N}]+/gu, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 export function groupByCategory<T extends NoteLike>(notes: T[]): CategoryGroup<T>[] {

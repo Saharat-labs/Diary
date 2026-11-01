@@ -17,6 +17,17 @@ test('categorySlug keeps Thai and normalises spaces/case', () => {
   expect(categorySlug('  ท่องเที่ยว  ญี่ปุ่น ')).toBe('ท่องเที่ยว-ญี่ปุ่น');
   expect(categorySlug('Food')).toBe('food');
 });
+test('categorySlug turns URL-unsafe punctuation into hyphens and keeps Thai marks', () => {
+  expect(categorySlug('หนัง/ซีรีส์')).toBe('หนัง-ซีรีส์');
+  expect(categorySlug('C# & .NET?')).toBe('c-net');
+  expect(categorySlug('100% fun')).toBe('100-fun');
+  expect(categorySlug('---a///b---')).toBe('a-b');
+  expect(categorySlug('?!/')).toBe('');
+});
+test('groupByCategory skips names that slug to empty', () => {
+  const g = groupByCategory([n('2026-01-01', ['?!', 'อาหาร'])]);
+  expect(g.map((x) => x.slug)).toEqual(['อาหาร']);
+});
 test('groupByCategory merges equivalent names and orders by count', () => {
   const g = groupByCategory([n('2026-01-01', ['อาหาร']), n('2026-01-02', ['อาหาร ', 'งาน']), n('2026-01-03', ['Food']), n('2026-01-04', ['food'])]);
   expect(g.map(x => x.slug)).toEqual(['อาหาร', 'food', 'งาน']);
