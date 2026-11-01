@@ -11,5 +11,7 @@ export default defineConfig({
     url: 'http://localhost:4321/Claudy/',
     reuseExistingServer: false,
     timeout: 120_000,
+    // ทดสอบกับบันทึกทดสอบ ไม่ใช่บันทึกจริงของเว็บ
+    env: { NOTES_DIR: './tests/fixtures/notes' },
   },
 });
