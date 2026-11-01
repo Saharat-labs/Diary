@@ -1,0 +1,25 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Categories from '../../components/Categories.astro';
+import { excerpt, formatThaiDate } from '../../lib/notes';
+import { getPublishedNotes } from '../../lib/published';
+
+export async function getStaticPaths() {
+  const notes = await getPublishedNotes();
+  return notes.map((note) => ({ params: { id: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+<Base title={note.data.title} description={excerpt(note.body ?? '', 160)}>
+  <article>
+    <h1>{note.data.title}</h1>
+    <p class="muted"><time datetime={note.data.date.toISOString()}>{formatThaiDate(note.data.date)}</time></p>
+    <Categories names={note.data.categories} />
+    {note.data.cover && <Image src={note.data.cover} alt="" width={1440} />}
+    <Content />
+  </article>
+</Base>

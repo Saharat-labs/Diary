@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import NoteCard from '../../components/NoteCard.astro';
+import { groupByCategory } from '../../lib/notes';
+import { getPublishedNotes } from '../../lib/published';
+
+export async function getStaticPaths() {
+  const groups = groupByCategory(await getPublishedNotes());
+  return groups.map((group) => ({ params: { slug: group.slug }, props: { group } }));
+}
+
+const { group } = Astro.props;
+---
+<Base title={group.name}>
+  <h1>หมวด: {group.name}</h1>
+  <p class="muted">{group.notes.length} บันทึก</p>
+  {group.notes.map((note) => <NoteCard note={note} />)}
+</Base>

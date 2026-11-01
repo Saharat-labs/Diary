@@ -1,0 +1,13 @@
+---
+import { categorySlug } from '../lib/notes';
+import { url } from '../lib/published';
+
+interface Props { names: string[] }
+const seen = new Set<string>();
+const items = Astro.props.names
+  .map((name) => ({ name: name.trim(), slug: categorySlug(name) }))
+  .filter((c) => c.slug && !seen.has(c.slug) && seen.add(c.slug));
+---
+<ul class="chips">
+  {items.map((c) => <li><a href={url(`categories/${c.slug}/`)}>{c.name}</a></li>)}
+</ul>

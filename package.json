@@ -1,0 +1,22 @@
+{
+  "name": "claudy-notes",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.19",
+    "astro": "5.18.2",
+    "remark-breaks": "4.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "vitest": "3.2.4",
+    "yaml": "2.8.1"
+  }
+}

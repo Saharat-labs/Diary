@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { groupByCategory } from '../../lib/notes';
+import { getPublishedNotes, url } from '../../lib/published';
+
+const groups = groupByCategory(await getPublishedNotes());
+---
+<Base title="หมวดหมู่">
+  <h1>หมวดหมู่</h1>
+  {groups.length === 0 && <p class="muted">ยังไม่มีหมวดหมู่</p>}
+  <ul class="cat-list">
+    {groups.map((g) => (
+      <li><a href={url(`categories/${g.slug}/`)}>{g.name}</a> <span class="muted">({g.notes.length})</span></li>
+    ))}
+  </ul>
+</Base>
+
+<style>
+  .cat-list { list-style: none; padding: 0; }
+  .cat-list li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+</style>

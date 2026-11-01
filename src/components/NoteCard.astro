@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { excerpt, formatThaiDate } from '../lib/notes';
+import { url } from '../lib/published';
+import Categories from './Categories.astro';
+
+interface Props { note: CollectionEntry<'notes'> }
+const { note } = Astro.props;
+const href = url(`notes/${note.id}/`);
+---
+<article class="card">
+  {note.data.cover && (
+    <a href={href} class="cover"><Image src={note.data.cover} alt="" width={720} /></a>
+  )}
+  <h2><a href={href}>{note.data.title}</a></h2>
+  <p class="muted"><time datetime={note.data.date.toISOString()}>{formatThaiDate(note.data.date)}</time></p>
+  <p>{excerpt(note.body ?? '')}</p>
+  <Categories names={note.data.categories} />
+</article>
+
+<style>
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 0 0 16px; }
+  .card h2 { margin: 4px 0 0; font-size: 1.2rem; }
+  .card h2 a { color: var(--fg); text-decoration: none; }
+  .card p { margin: 4px 0; }
+  .cover { display: block; margin: -4px -4px 8px; }
+  .cover :global(img) { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+</style>
