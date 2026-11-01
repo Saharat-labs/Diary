@@ -2,9 +2,9 @@ import { expect, test, type Page } from '@playwright/test';
 
 const B = '/Claudy';
 const NOTES = {
-  draft: { id: '2026-10-01-test-draft', title: 'ร่างลับห้ามเห็น', category: 'ลับ' },
-  cover: { id: '2026-10-02-test-cover', title: 'test-cover', category: 'ท่องเที่ยว ญี่ปุ่น' },
-  long: { id: '2026-10-03-test-long', title: 'test-long' },
+  draft: { id: '2026-10-28-d5r6t2', title: 'ไอเดียที่ยังเขียนไม่เสร็จ', category: 'ไอเดีย' },
+  cover: { id: '2026-10-20-a7k2m9', title: 'ทริปทะเลวันหยุดยาว', category: 'ท่องเที่ยว' },
+  long: { id: '2026-10-25-p3x8q1', title: 'สูตรผัดกะเพราที่ทำบ่อยที่สุด' },
 };
 const PAGES = [
   `${B}/`,
