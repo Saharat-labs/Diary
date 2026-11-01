@@ -1,0 +1,34 @@
+# ตรวจโค้ดทุกครั้งที่ push: รันทดสอบ, build เว็บ และทดสอบหน้าเว็บที่ความกว้างมือถือ
+# (แทน workflow "NodeJS with Webpack" เดิม — โปรเจกต์นี้ใช้ Astro ไม่ได้ใช้ webpack)
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Install browser for page tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Page tests (375px)
+        run: npx playwright test --reporter=line
