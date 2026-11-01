@@ -46,6 +46,21 @@ export function groupByCategory<T extends NoteLike>(notes: T[]): CategoryGroup<T
     .sort((a, b) => b.notes.length - a.notes.length || a.name.localeCompare(b.name, 'th'));
 }
 
+const BANGKOK_OFFSET = '+07:00';
+const LOCAL_DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+const LOCAL_DATE_TIME = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?$/;
+
+// วันที่ที่ไม่มี Z/offset (เช่น 2026-11-01T23:15:00) ให้ถือเป็นเวลาไทย ไม่ใช่ UTC
+// ค่าที่มี offset อยู่แล้ว และ Date ที่ YAML แปลงมาให้แล้ว ใช้ตามเดิม
+export function parseNoteDate(v: unknown): Date {
+  if (v instanceof Date) return v;
+  if (typeof v !== 'string') return new Date(v as number);
+  const s = v.trim();
+  if (LOCAL_DATE_ONLY.test(s)) return new Date(`${s}T00:00:00${BANGKOK_OFFSET}`);
+  if (LOCAL_DATE_TIME.test(s)) return new Date(`${s.replace(' ', 'T')}${BANGKOK_OFFSET}`);
+  return new Date(s);
+}
+
 const thaiDate = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long', timeZone: 'Asia/Bangkok' });
 
 export function formatThaiDate(d: Date): string {

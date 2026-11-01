@@ -1,4 +1,4 @@
-import { categorySlug, excerpt, formatThaiDate, groupByCategory, isPublished, sortByDateDesc } from '../../src/lib/notes';
+import { categorySlug, excerpt, formatThaiDate, groupByCategory, isPublished, parseNoteDate, sortByDateDesc } from '../../src/lib/notes';
 
 const n = (date: string, categories: string[], draft = false) =>
   ({ data: { date: new Date(date), categories, draft } });
@@ -40,4 +40,21 @@ test('formatThaiDate uses Buddhist year in Bangkok time', () => {
 test('excerpt strips markdown and images and truncates', () => {
   expect(excerpt('# หัวข้อ\n\n![รูป](a.webp) ไป[ทะเล](http://x)มา **สนุก**')).toBe('หัวข้อ ไปทะเลมา สนุก');
   expect(excerpt('ก'.repeat(200), 10)).toBe('ก'.repeat(10) + '…');
+});
+
+test('parseNoteDate reads offset-less values as Bangkok time and leaves explicit offsets alone', () => {
+  const iso = (v: unknown) => parseNoteDate(v).toISOString();
+  expect(iso('2026-11-01T23:15:00')).toBe('2026-11-01T16:15:00.000Z');
+  expect(iso('2026-11-01T23:15')).toBe('2026-11-01T16:15:00.000Z');
+  expect(iso('2026-11-01 23:15:00')).toBe('2026-11-01T16:15:00.000Z');
+  expect(iso('2026-11-01T23:15:00+07:00')).toBe('2026-11-01T16:15:00.000Z');
+  expect(iso('2026-11-01T16:15:00Z')).toBe('2026-11-01T16:15:00.000Z');
+  expect(iso('2026-11-01T16:15:00.000Z')).toBe('2026-11-01T16:15:00.000Z');
+  expect(iso('2026-11-01')).toBe('2026-10-31T17:00:00.000Z');
+});
+test('parseNoteDate passes Date objects through and rejects garbage', () => {
+  const d = new Date('2026-11-01T16:15:00Z');
+  expect(parseNoteDate(d)).toBe(d);
+  expect(Number.isNaN(parseNoteDate('not a date').getTime())).toBe(true);
+  expect(Number.isNaN(parseNoteDate(undefined).getTime())).toBe(true);
 });
